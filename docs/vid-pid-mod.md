@@ -146,23 +146,14 @@ Install VS Code, open it, and add the **WSL** extension: press `Ctrl + Shift + X
 
 ## Step 2 — Settings & WSL Tools
 
-### 2.1 — Find your WSL username
+### 2.1 — Your VID and PID
 
-Run this in Ubuntu. The answer goes into the Windows Explorer paths in Step 4 and Step 7.
-
-**WSL** — Show your username
-```bash
-whoami
-```
-
-### 2.2 — Your VID and PID
-
-The commands below use `369D` as the VID and `38B` as the PID. Those are the values for a Proton head unit — if your target is something else, use your own. `YOUR_WSL_USER` is your WSL username.
+The commands below use `369D` as the VID and `38B` as the PID. Those are the values for a Proton head unit — if your target is something else, use your own.
 
 > [!WARNING]
 > **Number format: plain hex. Never add `0x`.** Write `369D`, not `0x369D`. With `0x` in front, the driver reads it as `0x36`, which is wrong. Why is in [Project Notes](#project-notes), note 2.
 
-### 2.3 — Install the WSL tools
+### 2.2 — Install the WSL tools
 
 **WSL** — Get the latest package list
 ```bash
@@ -312,7 +303,14 @@ _**Save File** — writes the buffer out as `dump.bin`. Do this after each of th
 
 ### 4.3 — Copy both files into WSL
 
-Open Windows Explorer and paste this path into the address bar. Then copy `dump.bin` and `dump2.bin` into that folder:
+First, find your WSL username. Run this in Ubuntu:
+
+**WSL** — Show your username
+```bash
+whoami
+```
+
+Open Windows Explorer and paste this path into the address bar. Change `YOUR_WSL_USER` to the name `whoami` just showed. Then copy `dump.bin` and `dump2.bin` into that folder:
 
 **Windows** — Paste this into the Explorer address bar
 ```text
@@ -550,7 +548,7 @@ dump.bin 16777216
 
 ### 7.4 — Copy it back to Windows
 
-Paste this path into the Explorer address bar, and copy `dump.bin` to a folder on Windows. Give the copy a clear name, like `dump_MOD.bin`, so you don't mix it up with your backup.
+Paste this path into the Explorer address bar. Use the same username as in 4.3. Then copy `dump.bin` to a folder on Windows. Give the copy a clear name, like `dump_MOD.bin`, so you don't mix it up with your backup.
 
 **Windows** — Where the finished file is
 ```text
