@@ -117,6 +117,8 @@ If you worked out something this repository gets wrong, say so directly. Being c
 
 This work builds on [ludwig-v/wireless-carplay-dongle-reverse-engineering](https://github.com/ludwig-v/wireless-carplay-dongle-reverse-engineering) and the JFFS2 fork [ludwig-v/jefferson_carlinkit](https://github.com/ludwig-v/jefferson_carlinkit), which is what makes the rootfs on these dongles readable at all.
 
+Special thanks to friends [jamesjoe200](https://github.com/jamesjoe200) and [Warcheif81](https://github.com/Warcheif81) for also providing support in terms of information on the hidden APKs, car firmware files, and hardware advice.
+
 ---
 
 ## Legal
