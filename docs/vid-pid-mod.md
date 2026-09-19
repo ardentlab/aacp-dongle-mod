@@ -48,32 +48,17 @@ Phase 3  Repack & flash   → WSL: mkfs.jffs2 → dd back → NeoProgrammer writ
 >
 > Everything else in the firmware stays exactly as it was.
 
-### Read these colour tags first
+### Read these labels first
 
-Every command box has a colour tag in its top-left corner. The tag tells you **where to run it**, or that you should not run it at all.
+Every command box has a bold label just above it. The label tells you **where to run it**, or that you should not run it at all.
 
-WSL
-
-Run in **Ubuntu**
-
-Windows
-
-Run in **PowerShell** or paste into **Explorer**
-
-NeoProgrammer
-
-Do it by hand in **NeoProgrammer**
-
-Output
-
-**Don't run.** This shows what you should see
-
-Reference
-
-**Don't run.** Shown only to explain things
-
-> [!NOTE]
-> The **Output** and **Reference** boxes have no Copy button on purpose. That is another hint that you should not run them.
+| Label | What it means |
+|---|---|
+| **WSL** | Run in **Ubuntu** |
+| **Windows** | Run in **PowerShell** or paste into **Explorer** |
+| **NeoProgrammer** | Do it by hand in **NeoProgrammer** |
+| **Output** | **Don't run.** This shows what you should see |
+| **Reference** | **Don't run.** Shown only to explain things |
 
 > [!CAUTION]
 > **Safety rules. Read these once:**
