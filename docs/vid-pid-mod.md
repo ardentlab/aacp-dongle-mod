@@ -50,18 +50,30 @@ Phase 3  Repack & flash   → WSL: mkfs.jffs2 → dd back → NeoProgrammer writ
 
 ### Read these colour tags first
 
-Every command box has a tag in bold just above it. The tag tells you **where to run it**, or that you should not run it at all.
+Every command box has a colour tag in its top-left corner. The tag tells you **where to run it**, or that you should not run it at all.
 
-| Tag | Meaning |
-|---|---|
-| **WSL** | Run in **Ubuntu** |
-| **Windows** | Run in **PowerShell** or paste into **Explorer** |
-| **NeoProgrammer** | Do it by hand in **NeoProgrammer** |
-| **Output** | **Don't run.** This shows what you should see |
-| **Reference** | **Don't run.** Shown only to explain things |
+WSL
+
+Run in **Ubuntu**
+
+Windows
+
+Run in **PowerShell** or paste into **Explorer**
+
+NeoProgrammer
+
+Do it by hand in **NeoProgrammer**
+
+Output
+
+**Don't run.** This shows what you should see
+
+Reference
+
+**Don't run.** Shown only to explain things
 
 > [!NOTE]
-> GitHub puts a Copy button on every box, including **Output** and **Reference**. Don't run those two — they are not commands.
+> The **Output** and **Reference** boxes have no Copy button on purpose. That is another hint that you should not run them.
 
 > [!CAUTION]
 > **Safety rules. Read these once:**
@@ -87,11 +99,51 @@ Every command box has a tag in bold just above it. The tag tells you **where to 
 | 8-pin SOIC clip | Clips onto the chip so you don't have to desolder it. The red wire marks pin 1. |
 | Windows 10/11 PC | Runs NeoProgrammer and Ubuntu on WSL. |
 
+![CarlinKit CPC200-CCPA dongle, closed case with its USB cable](../images/dongle-assembled.jpg)
+
+*The CarlinKit CPC200-CCPA as it comes. The case clips shut, there are no screws.*
+
+![The dongle opened: two case halves above, the bare PCB with USB cable below](../images/dongle-case-opened.jpg)
+
+*Opened up. The case is two halves and the board lifts straight out.*
+
+![CH341A USB programmer seen from above, with its ZIF socket and pin header](../images/ch341a-programmer.jpg)
+
+*CH341A programmer. The black ZIF socket takes the clip adapter, and the yellow jumper must sit on `25XX`.*
+
+![CH341A plugged into a laptop USB port, power LED lit, yellow jumper on the 25XX pins](../images/ch341a-in-laptop.jpg)
+
+*Plugged in and powered. Check the **yellow jumper** sits across the `25XX` pins — on `24XX` the chip will never be found.*
+
+![8-pin SOIC clip on a ribbon cable, next to the small green adapter board](../images/soic-clip-and-adapter.jpg)
+
+*The 8-pin SOIC clip and its adapter board. The **red wire** marks pin 1, and that decides which way round the clip goes.*
+
 ### 1.2 — The flash chip
 
-| Chip | Series | Package | Size |
-|---|---|---|---|
-| Macronix MX25L12835F | 25L128 | 8-pin SOIC | 16 MB (16,777,216 bytes) |
+Chip
+
+Macronix MX25L12835F
+
+Series
+
+25L128
+
+Package
+
+8-pin SOIC
+
+Size
+
+16 MB (16,777,216 bytes)
+
+![The dongle PCB, flash-chip side up, with the USB cable still attached](../images/dongle-pcb-flash-side.jpg)
+
+*The side of the board the flash chip sits on. Everything happens on this side.*
+
+![Close-up of the Macronix MX25L12835F flash chip soldered to the PCB](../images/flash-chip-closeup.jpg)
+
+*The chip itself, marked `MX25L 12835F`. Read this marking before you start. A different chip means a different guide.*
 
 ### 1.3 — Software & drivers
 
@@ -104,9 +156,9 @@ Every command box has a tag in bold just above it. The tag tells you **where to 
 | VS Code WSL extension | Lets VS Code open folders inside WSL. [WSL extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl). |
 | Jefferson (CarlinKit version) | Unpacks the JFFS2 filesystem. You install it in [Step 3](#step-3--jefferson-setup), using [onekey-sec/jefferson](https://github.com/onekey-sec/jefferson) and [ludwig-v/jefferson_carlinkit](https://github.com/ludwig-v/jefferson_carlinkit). |
 
-### 1.4 — Install Ubuntu on WSL
+**1.4 — Install Ubuntu on WSL** (skip this if you already have it)
 
-Skip this if you already have it. Get it from the **Microsoft Store** (search for `Ubuntu`). Or open PowerShell (press `Win + R`, type `powershell`, press Enter) and run:
+Get it from the **Microsoft Store** (search for `Ubuntu`). Or open PowerShell (press `Win + R`, type `powershell`, press Enter) and run:
 
 **Windows** — Install Ubuntu on WSL
 ```bat
@@ -133,12 +185,12 @@ Run this in Ubuntu. The answer goes into the Windows Explorer paths in Step 4 an
 whoami
 ```
 
-### 2.2 — Your VID, PID and username
+### 2.2 — Fill in your settings
 
-This guide uses `369D` as the VID and `38B` as the PID. Those are the values for a Proton head unit — if your target is something else, use your own in Step 6. Wherever you see `YOUR_WSL_USER`, put in the username from 2.1.
+The commands below use `369D` as the VID and `38B` as the PID. Those are the values for a Proton head unit — if your target is something else, use your own. `YOUR_WSL_USER` is your WSL username.
 
 > [!WARNING]
-> **Number format: plain hex. Never add `0x`.** Write `369D`, not `0x369D`. With `0x` in front, the driver reads it as `0x36`, which is wrong. Why is in [Project Notes, note 2](#2--why-plain-hex-not-0x).
+> **Number format: plain hex. Never add `0x`.** Write `369D`, not `0x369D`. With `0x` in front, the driver reads it as `0x36`, which is wrong. Why is in [Project Notes](#project-notes), note 2.
 
 ### 2.3 — Install the WSL tools
 
@@ -158,7 +210,7 @@ pipx ensurepath
 ```
 
 > [!WARNING]
-> **Reload your terminal after this.** `pipx ensurepath` updates your PATH, but the change doesn't reach the window you already have open. Run the command below, or close and reopen Ubuntu.
+> **Reload your terminal after this.**`pipx ensurepath` updates your PATH, but the change doesn't reach the window you already have open. Run the command below, or close and reopen Ubuntu.
 
 **WSL** — Apply PATH changes without restarting
 ```bash
@@ -237,16 +289,60 @@ cd ~
 > [!CAUTION]
 > **Getting pin 1 right is very important.** If the clip is the wrong way round, it can damage the chip or give you a broken read.
 
+![Close-up of the MX25L12835F chip with the pin 1 dot circled and labelled](../images/flash-chip-pin1-dot.jpg)
+
+_**Find pin 1 first.** The small dot pressed into the corner of the chip is pin 1 — circled here. The **red wire** on the clip goes on that corner. Check this before the clip goes anywhere near the board._
+
+![The adapter board's pins seated in the CH341A ZIF socket, clip cable plugged on top](../images/adapter-pins-in-socket.jpg)
+
+*The adapter board goes in pins-down, at the **lever end** of the socket. Close the lever before you plug the clip cable on.*
+
+![The clip's ribbon connector pushed down onto the adapter board in the socket](../images/clip-cable-on-adapter.jpg)
+
+*The ribbon connector pushed fully home on the adapter. The **red stripe** on the ribbon stays on the same side as pin 1.*
+
+![The clip's adapter board pushed into the CH341A ZIF socket, lever closed](../images/soic-clip-adapter-in-ch341a.jpg)
+
+*Adapter board in the CH341A socket, lever pushed down. Pin 1 of the socket is the end nearest the lever.*
+
+![The 8-pin SOIC clip closed over the flash chip on the dongle PCB](../images/soic-clip-on-flash-chip.jpg)
+
+*The clip sitting square on the chip. All eight jaws must touch, and the **red wire** must be on the pin-1 side.*
+
+![The SOIC clip standing straight up, pressed down over the flash chip on the dongle PCB](../images/soic-clip-pressed-on-pcb.jpg)
+
+*Press the clip straight down, square on the chip. If it leans, only some jaws touch and the read comes back wrong.*
+
+![The whole rig: CH341A in the laptop, ribbon cable to the clip, clip on the dongle PCB](../images/ch341a-clip-dongle-setup.jpg)
+
+*The whole rig. The dongle's own USB cable stays unplugged while you read and write the chip.*
+
 ### 4.2 — Read the chip twice
 
 1. Open **NeoProgrammer**.
-2. Click **Detect**. Make sure it picks `MX25L12835F`. If it doesn't, pick it by hand.
+2. Click **Detect**. A **Search IC** window opens — pick `MX25L12835F` from the list and click **Select**.
 3. Click **Read**. Save the result as `dump.bin`.
 4. Click **Read** again. Save this one as `dump2.bin`.
 5. **Make a backup copy of `dump.bin` right away**, in a separate folder. Never touch it.
 
 > [!NOTE]
 > Why read twice? A loose clip can give a read that looks fine but has wrong bytes in it. If two reads match, the read is good.
+
+![NeoProgrammer Search IC window with MX25L12835F highlighted in the chip list](../images/neoprogrammer-select-chip.png)
+
+_**Detect** opens this window. Pick `MX25L12835F` — 3.3V, 128 Mbits, MACRONIX — and click **Select**. The log line `SPI ID: C22018` is the chip answering, so the clip is on properly._
+
+![NeoProgrammer toolbar with the Read IC button hovered](../images/neoprogrammer-read-ic.png)
+
+_**Read IC** — the second green button. This reads all 16 MB off the chip into the buffer._
+
+![NeoProgrammer reading the chip, progress bar running and the buffer filling with data](../images/neoprogrammer-reading-memory.png)
+
+*A read in progress. It takes a couple of minutes, and the buffer fills as it goes.*
+
+![NeoProgrammer toolbar with the Save File button hovered](../images/neoprogrammer-save-file.png)
+
+_**Save File** — writes the buffer out as `dump.bin`. Do this after each of the two reads._
 
 ### 4.3 — Copy both files into WSL
 
@@ -268,13 +364,13 @@ cmp dump.bin dump2.bin && echo "[OK] Both reads match"
 
 > [!TIP]
 > **You should see:**
->
-> **Output** — Expected output
-> ```text
-> dump.bin 16777216
-> dump2.bin 16777216
-> [OK] Both reads match
-> ```
+
+**Output** — Expected output
+```text
+dump.bin 16777216
+dump2.bin 16777216
+[OK] Both reads match
+```
 
 > [!CAUTION]
 > **If the size is not 16777216, or `cmp` says "differ", stop.** Push the clip on firmly, read again, and check again. Never carry on with a bad dump.
@@ -297,7 +393,7 @@ ls -la dump*.bin
 
 ### 5.1 — Cut the JFFS2 part out of the dump
 
-The filesystem starts 3,670,016 bytes into the chip and runs to the end. More about the layout in [Project Notes, note 1](#1--flash-layout).
+The filesystem starts 3,670,016 bytes into the chip and runs to the end. More about the layout in [Project Notes](#project-notes), note 1.
 
 **WSL** — Go to WSL home folder
 ```bash
@@ -362,26 +458,77 @@ wsl --shutdown
 
 The dongle's saved settings. This is the value the dongle actually uses.
 
-| Find (original) | Change to |
-|---|---|
-| `"USBVID": "1314",`<br>`"USBPID": "1521",` | `"USBVID": "369D",`<br>`"USBPID": "38B",` |
+Find (original)
+
+"USBVID": "1314",
+
+"USBPID": "1521",
+
+Change to
+
+"USBVID": "
+
+369D
+
+",
+
+"USBPID": "
+
+38B
+
+",
 
 ### File 2 — etc/riddle_default.conf
 
 The default settings. Without this change, a settings reset would bring back the old IDs.
 
-| Find (original) | Change to |
-|---|---|
-| `"USBVID": "1314",`<br>`"USBPID": "1521"` | `"USBVID": "369D",`<br>`"USBPID": "38B"` |
+Find (original)
+
+"USBVID": "1314",
+
+"USBPID": "1521"
+
+Change to
+
+"USBVID": "
+
+369D
+
+",
+
+"USBPID": "
+
+38B
+
+"
 
 ### File 3 — script/start_accessory.sh
 
 The backup values. They only run if the settings above are ever empty. Two lines:
 
-| Find (original) | Change to |
-|---|---|
-| `echo 1314 > /sys/class/android_usb_accessory/android0/idVendor` | `echo 369D > /sys/class/android_usb_accessory/android0/idVendor` |
-| `echo 1520 > /sys/class/android_usb_accessory/android0/idProduct` | `echo 38B > /sys/class/android_usb_accessory/android0/idProduct` |
+Find (original)
+
+echo 1314 > /sys/class/android_usb_accessory/android0/idVendor
+
+Change to
+
+echo
+
+369D
+
+> /sys/class/android_usb_accessory/android0/idVendor
+
+Find (original)
+
+echo 1520 > /sys/class/android_usb_accessory/android0/idProduct
+
+Change to
+
+echo
+
+38B
+
+> /sys/class/android_usb_accessory/android0/idProduct
 
 > [!TIP]
 > **Save all three files** (`Ctrl + S` in each tab) before you close VS Code.
@@ -399,18 +546,18 @@ grep -rn --include=start_accessory.sh "android0/idVendor\|android0/idProduct" ex
 
 > [!TIP]
 > **Every line must show your values:**
->
-> **Output** — Expected output (line numbers may differ)
-> ```text
-> extractedRootFS/etc/riddle.conf:…:  "USBVID": "369D",
-> extractedRootFS/etc/riddle.conf:…:  "USBPID": "38B",
-> extractedRootFS/etc/riddle_default.conf:…:  "USBVID": "369D",
-> extractedRootFS/etc/riddle_default.conf:…:  "USBPID": "38B"
-> extractedRootFS/script/start_accessory.sh:…:  echo -n $idVendor > /sys/class/android_usb_accessory/android0/idVendor
-> extractedRootFS/script/start_accessory.sh:…:  echo 369D > /sys/class/android_usb_accessory/android0/idVendor
-> extractedRootFS/script/start_accessory.sh:…:  echo -n $idProduct > /sys/class/android_usb_accessory/android0/idProduct
-> extractedRootFS/script/start_accessory.sh:…:  echo 38B > /sys/class/android_usb_accessory/android0/idProduct
-> ```
+
+**Output** — Expected output (line numbers may differ)
+```text
+extractedRootFS/etc/riddle.conf:…:  "USBVID": "369D",
+extractedRootFS/etc/riddle.conf:…:  "USBPID": "38B",
+extractedRootFS/etc/riddle_default.conf:…:  "USBVID": "369D",
+extractedRootFS/etc/riddle_default.conf:…:  "USBPID": "38B"
+extractedRootFS/script/start_accessory.sh:…:  echo -n $idVendor > /sys/class/android_usb_accessory/android0/idVendor
+extractedRootFS/script/start_accessory.sh:…:  echo 369D > /sys/class/android_usb_accessory/android0/idVendor
+extractedRootFS/script/start_accessory.sh:…:  echo -n $idProduct > /sys/class/android_usb_accessory/android0/idProduct
+extractedRootFS/script/start_accessory.sh:…:  echo 38B > /sys/class/android_usb_accessory/android0/idProduct
+```
 
 > [!TIP]
 > The `echo -n $idVendor` / `$idProduct` lines are normal. They read the value from `riddle.conf`. If you still see `1314`, `1520` or `1521` anywhere, a file wasn't saved. Go back and fix it.
@@ -458,12 +605,12 @@ cmp -n 3670016 dump.bin dump_original.bin && echo "[OK] First 3,670,016 bytes un
 
 > [!TIP]
 > **You should see:**
->
-> **Output** — Expected output
-> ```text
-> dump.bin 16777216
-> [OK] First 3,670,016 bytes untouched
-> ```
+
+**Output** — Expected output
+```text
+dump.bin 16777216
+[OK] First 3,670,016 bytes untouched
+```
 
 > [!TIP]
 > The size is still exactly 16 MB, and the bootloader and kernel at the start of the chip are exactly the same as before.
@@ -482,11 +629,23 @@ Paste this path into the Explorer address bar, and copy `dump.bin` to a folder o
 `NeoProgrammer`
 
 1. Check the clip is still on firmly, with the red wire on pin 1.
-2. Open **NeoProgrammer** and click **Detect**. Make sure it shows `MX25L12835F`.
+2. Open **NeoProgrammer**, click **Detect** and pick `MX25L12835F` again.
 3. Open the changed file (`dump_MOD.bin`).
 4. Click the **small arrow** next to the **Write IC** button.
 5. Pick the full sequence below and let it run.
 6. Wait for it to finish. There should be **no errors**.
+
+![NeoProgrammer toolbar with the Open File button hovered](../images/neoprogrammer-open-file.png)
+
+_**Open File** — load `dump_MOD.bin` into the buffer. Check the file name twice before you write anything._
+
+![The dropdown next to Write IC, showing Off-Protect, Erase, Blank Check, Write and Verify](../images/neoprogrammer-write-options.png)
+
+*The dropdown next to **Write IC**. Tick **Erase**, **Blank Check**, **Write** and **Verify** — that is the full sequence.*
+
+![NeoProgrammer toolbar with the Write IC button hovered](../images/neoprogrammer-write-ic.png)
+
+_**Write IC** runs the ticked steps in order. Don't touch the clip until Verify says it passed._
 
 **NeoProgrammer** — Flash sequence — run in this exact order
 ```text
