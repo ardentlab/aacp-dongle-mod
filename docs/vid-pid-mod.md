@@ -80,24 +80,19 @@ Every command box has a bold label just above it. The label tells you **where to
 | 8-pin SOIC clip | Clips onto the chip so you don't have to desolder it. The red wire marks pin 1. |
 | Windows 10/11 PC | Runs NeoProgrammer and Ubuntu on WSL. |
 
-![CarlinKit CPC200-CCPA dongle, closed case with its USB cable](../images/dongle-assembled.jpg)
-
+![CarlinKit CPC200-CCPA dongle, closed case with its USB cable](../images/dongle-assembled.jpg)\
 *The CarlinKit CPC200-CCPA as it comes. The case clips shut, there are no screws.*
 
-![The dongle opened: two case halves above, the bare PCB with USB cable below](../images/dongle-case-opened.jpg)
-
+![The dongle opened: two case halves above, the bare PCB with USB cable below](../images/dongle-case-opened.jpg)\
 *Opened up. The case is two halves and the board lifts straight out.*
 
-![CH341A USB programmer seen from above, with its ZIF socket and pin header](../images/ch341a-programmer.jpg)
-
+![CH341A USB programmer seen from above, with its ZIF socket and pin header](../images/ch341a-programmer.jpg)\
 *CH341A programmer. The black ZIF socket takes the clip adapter, and the yellow jumper must sit on `25XX`.*
 
-![CH341A plugged into a laptop USB port, power LED lit, yellow jumper on the 25XX pins](../images/ch341a-in-laptop.jpg)
-
+![CH341A plugged into a laptop USB port, power LED lit, yellow jumper on the 25XX pins](../images/ch341a-in-laptop.jpg)\
 *Plugged in and powered. Check the **yellow jumper** sits across the `25XX` pins — on `24XX` the chip will never be found.*
 
-![8-pin SOIC clip on a ribbon cable, next to the small green adapter board](../images/soic-clip-and-adapter.jpg)
-
+![8-pin SOIC clip on a ribbon cable, next to the small green adapter board](../images/soic-clip-and-adapter.jpg)\
 *The 8-pin SOIC clip and its adapter board. The **red wire** marks pin 1, and that decides which way round the clip goes.*
 
 ### 1.2 — The flash chip
@@ -109,12 +104,10 @@ Every command box has a bold label just above it. The label tells you **where to
 | Package | 8-pin SOIC |
 | Size | 16 MB (16,777,216 bytes) |
 
-![The dongle PCB, flash-chip side up, with the USB cable still attached](../images/dongle-pcb-flash-side.jpg)
-
+![The dongle PCB, flash-chip side up, with the USB cable still attached](../images/dongle-pcb-flash-side.jpg)\
 *The side of the board the flash chip sits on. Everything happens on this side.*
 
-![Close-up of the Macronix MX25L12835F flash chip soldered to the PCB](../images/flash-chip-closeup.jpg)
-
+![Close-up of the Macronix MX25L12835F flash chip soldered to the PCB](../images/flash-chip-closeup.jpg)\
 *The chip itself, marked `MX25L 12835F`. Read this marking before you start. A different chip means a different guide.*
 
 ### 1.3 — Software & drivers
@@ -246,32 +239,25 @@ cd ~
 > [!CAUTION]
 > **Getting pin 1 right is very important.** If the clip is the wrong way round, it can damage the chip or give you a broken read.
 
-![Close-up of the MX25L12835F chip with the pin 1 dot circled and labelled](../images/flash-chip-pin1-dot.jpg)
-
+![Close-up of the MX25L12835F chip with the pin 1 dot circled and labelled](../images/flash-chip-pin1-dot.jpg)\
 _**Find pin 1 first.** The small dot pressed into the corner of the chip is pin 1 — circled here. The **red wire** on the clip goes on that corner. Check this before the clip goes anywhere near the board._
 
-![The adapter board's pins seated in the CH341A ZIF socket, clip cable plugged on top](../images/adapter-pins-in-socket.jpg)
-
+![The adapter board's pins seated in the CH341A ZIF socket, clip cable plugged on top](../images/adapter-pins-in-socket.jpg)\
 *The adapter board goes in pins-down, at the **lever end** of the socket. Close the lever before you plug the clip cable on.*
 
-![The clip's ribbon connector pushed down onto the adapter board in the socket](../images/clip-cable-on-adapter.jpg)
-
+![The clip's ribbon connector pushed down onto the adapter board in the socket](../images/clip-cable-on-adapter.jpg)\
 *The ribbon connector pushed fully home on the adapter. The **red stripe** on the ribbon stays on the same side as pin 1.*
 
-![The clip's adapter board pushed into the CH341A ZIF socket, lever closed](../images/soic-clip-adapter-in-ch341a.jpg)
-
+![The clip's adapter board pushed into the CH341A ZIF socket, lever closed](../images/soic-clip-adapter-in-ch341a.jpg)\
 *Adapter board in the CH341A socket, lever pushed down. Pin 1 of the socket is the end nearest the lever.*
 
-![The 8-pin SOIC clip closed over the flash chip on the dongle PCB](../images/soic-clip-on-flash-chip.jpg)
-
+![The 8-pin SOIC clip closed over the flash chip on the dongle PCB](../images/soic-clip-on-flash-chip.jpg)\
 *The clip sitting square on the chip. All eight jaws must touch, and the **red wire** must be on the pin-1 side.*
 
-![The SOIC clip standing straight up, pressed down over the flash chip on the dongle PCB](../images/soic-clip-pressed-on-pcb.jpg)
-
+![The SOIC clip standing straight up, pressed down over the flash chip on the dongle PCB](../images/soic-clip-pressed-on-pcb.jpg)\
 *Press the clip straight down, square on the chip. If it leans, only some jaws touch and the read comes back wrong.*
 
-![The whole rig: CH341A in the laptop, ribbon cable to the clip, clip on the dongle PCB](../images/ch341a-clip-dongle-setup.jpg)
-
+![The whole rig: CH341A in the laptop, ribbon cable to the clip, clip on the dongle PCB](../images/ch341a-clip-dongle-setup.jpg)\
 *The whole rig. The dongle's own USB cable stays unplugged while you read and write the chip.*
 
 ### 4.2 — Read the chip twice
@@ -285,20 +271,16 @@ _**Find pin 1 first.** The small dot pressed into the corner of the chip is pin 
 > [!NOTE]
 > Why read twice? A loose clip can give a read that looks fine but has wrong bytes in it. If two reads match, the read is good.
 
-![NeoProgrammer Search IC window with MX25L12835F highlighted in the chip list](../images/neoprogrammer-select-chip.png)
-
+![NeoProgrammer Search IC window with MX25L12835F highlighted in the chip list](../images/neoprogrammer-select-chip.png)\
 _**Detect** opens this window. Pick `MX25L12835F` — 3.3V, 128 Mbits, MACRONIX — and click **Select**. The log line `SPI ID: C22018` is the chip answering, so the clip is on properly._
 
-![NeoProgrammer toolbar with the Read IC button hovered](../images/neoprogrammer-read-ic.png)
-
+![NeoProgrammer toolbar with the Read IC button hovered](../images/neoprogrammer-read-ic.png)\
 _**Read IC** — the second green button. This reads all 16 MB off the chip into the buffer._
 
-![NeoProgrammer reading the chip, progress bar running and the buffer filling with data](../images/neoprogrammer-reading-memory.png)
-
+![NeoProgrammer reading the chip, progress bar running and the buffer filling with data](../images/neoprogrammer-reading-memory.png)\
 *A read in progress. It takes a couple of minutes, and the buffer fills as it goes.*
 
-![NeoProgrammer toolbar with the Save File button hovered](../images/neoprogrammer-save-file.png)
-
+![NeoProgrammer toolbar with the Save File button hovered](../images/neoprogrammer-save-file.png)\
 _**Save File** — writes the buffer out as `dump.bin`. Do this after each of the two reads._
 
 ### 4.3 — Copy both files into WSL
@@ -564,16 +546,13 @@ Paste this path into the Explorer address bar. Use the same username as in 4.3. 
 5. Pick the full sequence below and let it run.
 6. Wait for it to finish. There should be **no errors**.
 
-![NeoProgrammer toolbar with the Open File button hovered](../images/neoprogrammer-open-file.png)
-
+![NeoProgrammer toolbar with the Open File button hovered](../images/neoprogrammer-open-file.png)\
 _**Open File** — load `dump_MOD.bin` into the buffer. Check the file name twice before you write anything._
 
-![The dropdown next to Write IC, showing Off-Protect, Erase, Blank Check, Write and Verify](../images/neoprogrammer-write-options.png)
-
+![The dropdown next to Write IC, showing Off-Protect, Erase, Blank Check, Write and Verify](../images/neoprogrammer-write-options.png)\
 *The dropdown next to **Write IC**. Tick **Erase**, **Blank Check**, **Write** and **Verify** — that is the full sequence.*
 
-![NeoProgrammer toolbar with the Write IC button hovered](../images/neoprogrammer-write-ic.png)
-
+![NeoProgrammer toolbar with the Write IC button hovered](../images/neoprogrammer-write-ic.png)\
 _**Write IC** runs the ticked steps in order. Don't touch the clip until Verify says it passed._
 
 **NeoProgrammer** — Run these in this exact order
