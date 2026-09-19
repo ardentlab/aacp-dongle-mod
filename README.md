@@ -8,19 +8,40 @@ This repository documents **methods**: how the firmware on these dongles is laid
 
 ## ⚠️ Read this before anything else
 
-**This work can permanently kill your dongle.**
+> [!CAUTION]
+> # 🔥 VERY HIGH RISK — YOU CAN DESTROY YOUR HARDWARE 🔥
+>
+> **Everything in this repository is for EDUCATIONAL PURPOSES ONLY. You do it ENTIRELY AT YOUR OWN RISK.**
+>
+> **The dongle, the flash chip, the CH341A programmer, your USB port — any of it can be FRIED, BRICKED or PERMANENTLY DAMAGED.** There may be no way to bring it back.
 
-You are clipping onto a flash chip and overwriting the firmware on it. A bad write, a bad clip contact, or the wrong file leaves you with a dongle that does nothing at all.
+### ☠️ What can go wrong
 
-- Everything here is **for learning and research only**.
-- You are **solely responsible** for whatever you do to your own hardware.
-- This will likely **void your warranty**.
+- **Fried chip or board.** A clip on the wrong way round, a slip of the clip, or the wrong voltage can burn the flash chip or the dongle's board. Dead is dead.
+- **Bricked dongle.** A bad read, a bad write, a loose clip or the wrong file leaves you with a dongle that does nothing at all.
+- **Damaged programmer or PC port.** A short while clipping on can take the CH341A, or the USB port it is plugged into, with it.
+- **Lost original firmware.** Without a clean dump of your own chip, there is **no way back**.
+
+### 🚫 No responsibility. None.
+
+- **You are solely responsible** for whatever happens to your dongle, chip, programmer, PC, car or head unit.
+- **If it breaks, burns or bricks, that is on you.** The authors and contributors take **no responsibility** and will **not** help recover or replace anything.
+- This will **void your warranty**.
 - Nothing here is tested or approved by CarlinKit or by any vehicle manufacturer.
 - **No warranty of any kind.** If it breaks, you own both pieces.
 
-**Read the whole chip and keep that dump before you change anything.** That file is the only way back.
+> [!TIP]
+> ### 🛒 Just want it to work? BUY ONE THAT IS ALREADY MODDED.
+>
+> **The easy, safe way is to buy a dongle that is already modded for your car, from the market.** No clip, no programmer, no risk of frying anything. This repository is for people who want to **learn how it works**, not the fastest way to get a working dongle.
 
-If you are not comfortable with a SOIC clip, a CH341A programmer and a Linux shell, this repository is not for you.
+If you still go ahead:
+
+- **Read the whole chip and keep that dump before you change anything.** That file is the only way back.
+- If you are not comfortable with a SOIC clip, a CH341A programmer and a Linux shell, **stop here**. This repository is not for you.
+
+> [!WARNING]
+> **By following anything in this repository, you accept all of the risk above. Educational purposes only. At your own risk.**
 
 ---
 
