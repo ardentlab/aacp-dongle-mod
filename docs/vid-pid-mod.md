@@ -106,21 +106,12 @@ Every command box has a bold label just above it. The label tells you **where to
 
 ### 1.2 — The flash chip
 
-Chip
-
-Macronix MX25L12835F
-
-Series
-
-25L128
-
-Package
-
-8-pin SOIC
-
-Size
-
-16 MB (16,777,216 bytes)
+| Spec | Value |
+|---|---|
+| Chip | Macronix `MX25L12835F` |
+| Series | `25L128` |
+| Package | 8-pin SOIC |
+| Size | 16 MB (16,777,216 bytes) |
 
 ![The dongle PCB, flash-chip side up, with the USB cable still attached](../images/dongle-pcb-flash-side.jpg)
 
@@ -443,77 +434,57 @@ wsl --shutdown
 
 The dongle's saved settings. This is the value the dongle actually uses.
 
-Find (original)
-
+**Find (original)**
+```json
 "USBVID": "1314",
-
 "USBPID": "1521",
+```
 
-Change to
-
-"USBVID": "
-
-369D
-
-",
-
-"USBPID": "
-
-38B
-
-",
+**Change to**
+```json
+"USBVID": "369D",
+"USBPID": "38B",
+```
 
 ### File 2 — etc/riddle_default.conf
 
 The default settings. Without this change, a settings reset would bring back the old IDs.
 
-Find (original)
-
+**Find (original)**
+```json
 "USBVID": "1314",
-
 "USBPID": "1521"
+```
 
-Change to
-
-"USBVID": "
-
-369D
-
-",
-
-"USBPID": "
-
-38B
-
-"
+**Change to**
+```json
+"USBVID": "369D",
+"USBPID": "38B"
+```
 
 ### File 3 — script/start_accessory.sh
 
 The backup values. They only run if the settings above are ever empty. Two lines:
 
-Find (original)
-
+**Find (original)**
+```bash
 echo 1314 > /sys/class/android_usb_accessory/android0/idVendor
+```
 
-Change to
+**Change to**
+```bash
+echo 369D > /sys/class/android_usb_accessory/android0/idVendor
+```
 
-echo
-
-369D
-
-> /sys/class/android_usb_accessory/android0/idVendor
-
-Find (original)
-
+**Find (original)**
+```bash
 echo 1520 > /sys/class/android_usb_accessory/android0/idProduct
+```
 
-Change to
-
-echo
-
-38B
-
-> /sys/class/android_usb_accessory/android0/idProduct
+**Change to**
+```bash
+echo 38B > /sys/class/android_usb_accessory/android0/idProduct
+```
 
 > [!TIP]
 > **Save all three files** (`Ctrl + S` in each tab) before you close VS Code.
