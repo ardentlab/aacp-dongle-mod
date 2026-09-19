@@ -50,30 +50,18 @@ Phase 3  Repack & flash   → WSL: mkfs.jffs2 → dd back → NeoProgrammer writ
 
 ### Read these colour tags first
 
-Every command box has a colour tag in its top-left corner. The tag tells you **where to run it**, or that you should not run it at all.
+Every command box has a tag in bold just above it. The tag tells you **where to run it**, or that you should not run it at all.
 
-WSL
-
-Run in **Ubuntu**
-
-Windows
-
-Run in **PowerShell** or paste into **Explorer**
-
-NeoProgrammer
-
-Do it by hand in **NeoProgrammer**
-
-Output
-
-**Don't run.** This shows what you should see
-
-Reference
-
-**Don't run.** Shown only to explain things
+| Tag | Meaning |
+|---|---|
+| **WSL** | Run in **Ubuntu** |
+| **Windows** | Run in **PowerShell** or paste into **Explorer** |
+| **NeoProgrammer** | Do it by hand in **NeoProgrammer** |
+| **Output** | **Don't run.** This shows what you should see |
+| **Reference** | **Don't run.** Shown only to explain things |
 
 > [!NOTE]
-> The **Output** and **Reference** boxes have no Copy button on purpose. That is another hint that you should not run them.
+> GitHub puts a Copy button on every box, including **Output** and **Reference**. Don't run those two — they are not commands.
 
 > [!CAUTION]
 > **Safety rules. Read these once:**
@@ -101,21 +89,9 @@ Reference
 
 ### 1.2 — The flash chip
 
-Chip
-
-Macronix MX25L12835F
-
-Series
-
-25L128
-
-Package
-
-8-pin SOIC
-
-Size
-
-16 MB (16,777,216 bytes)
+| Chip | Series | Package | Size |
+|---|---|---|---|
+| Macronix MX25L12835F | 25L128 | 8-pin SOIC | 16 MB (16,777,216 bytes) |
 
 ### 1.3 — Software & drivers
 
@@ -128,9 +104,9 @@ Size
 | VS Code WSL extension | Lets VS Code open folders inside WSL. [WSL extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl). |
 | Jefferson (CarlinKit version) | Unpacks the JFFS2 filesystem. You install it in [Step 3](#step-3--jefferson-setup), using [onekey-sec/jefferson](https://github.com/onekey-sec/jefferson) and [ludwig-v/jefferson_carlinkit](https://github.com/ludwig-v/jefferson_carlinkit). |
 
-**1.4 — Install Ubuntu on WSL** (skip this if you already have it)
+### 1.4 — Install Ubuntu on WSL
 
-Get it from the **Microsoft Store** (search for `Ubuntu`). Or open PowerShell (press `Win + R`, type `powershell`, press Enter) and run:
+Skip this if you already have it. Get it from the **Microsoft Store** (search for `Ubuntu`). Or open PowerShell (press `Win + R`, type `powershell`, press Enter) and run:
 
 **Windows** — Install Ubuntu on WSL
 ```bat
@@ -157,12 +133,12 @@ Run this in Ubuntu. The answer goes into the Windows Explorer paths in Step 4 an
 whoami
 ```
 
-### 2.2 — Fill in your settings
+### 2.2 — Your VID, PID and username
 
-The commands below use `369D` as the VID and `38B` as the PID. Those are the values for a Proton head unit — if your target is something else, use your own. `YOUR_WSL_USER` is your WSL username.
+This guide uses `369D` as the VID and `38B` as the PID. Those are the values for a Proton head unit — if your target is something else, use your own in Step 6. Wherever you see `YOUR_WSL_USER`, put in the username from 2.1.
 
 > [!WARNING]
-> **Number format: plain hex. Never add `0x`.** Write `369D`, not `0x369D`. With `0x` in front, the driver reads it as `0x36`, which is wrong. Why is in [Project Notes](#project-notes), note 2.
+> **Number format: plain hex. Never add `0x`.** Write `369D`, not `0x369D`. With `0x` in front, the driver reads it as `0x36`, which is wrong. Why is in [Project Notes, note 2](#2--why-plain-hex-not-0x).
 
 ### 2.3 — Install the WSL tools
 
@@ -182,7 +158,7 @@ pipx ensurepath
 ```
 
 > [!WARNING]
-> **Reload your terminal after this.**`pipx ensurepath` updates your PATH, but the change doesn't reach the window you already have open. Run the command below, or close and reopen Ubuntu.
+> **Reload your terminal after this.** `pipx ensurepath` updates your PATH, but the change doesn't reach the window you already have open. Run the command below, or close and reopen Ubuntu.
 
 **WSL** — Apply PATH changes without restarting
 ```bash
@@ -292,13 +268,13 @@ cmp dump.bin dump2.bin && echo "[OK] Both reads match"
 
 > [!TIP]
 > **You should see:**
-
-**Output** — Expected output
-```text
-dump.bin 16777216
-dump2.bin 16777216
-[OK] Both reads match
-```
+>
+> **Output** — Expected output
+> ```text
+> dump.bin 16777216
+> dump2.bin 16777216
+> [OK] Both reads match
+> ```
 
 > [!CAUTION]
 > **If the size is not 16777216, or `cmp` says "differ", stop.** Push the clip on firmly, read again, and check again. Never carry on with a bad dump.
@@ -321,7 +297,7 @@ ls -la dump*.bin
 
 ### 5.1 — Cut the JFFS2 part out of the dump
 
-The filesystem starts 3,670,016 bytes into the chip and runs to the end. More about the layout in [Project Notes](#project-notes), note 1.
+The filesystem starts 3,670,016 bytes into the chip and runs to the end. More about the layout in [Project Notes, note 1](#1--flash-layout).
 
 **WSL** — Go to WSL home folder
 ```bash
@@ -386,77 +362,26 @@ wsl --shutdown
 
 The dongle's saved settings. This is the value the dongle actually uses.
 
-Find (original)
-
-"USBVID": "1314",
-
-"USBPID": "1521",
-
-Change to
-
-"USBVID": "
-
-369D
-
-",
-
-"USBPID": "
-
-38B
-
-",
+| Find (original) | Change to |
+|---|---|
+| `"USBVID": "1314",`<br>`"USBPID": "1521",` | `"USBVID": "369D",`<br>`"USBPID": "38B",` |
 
 ### File 2 — etc/riddle_default.conf
 
 The default settings. Without this change, a settings reset would bring back the old IDs.
 
-Find (original)
-
-"USBVID": "1314",
-
-"USBPID": "1521"
-
-Change to
-
-"USBVID": "
-
-369D
-
-",
-
-"USBPID": "
-
-38B
-
-"
+| Find (original) | Change to |
+|---|---|
+| `"USBVID": "1314",`<br>`"USBPID": "1521"` | `"USBVID": "369D",`<br>`"USBPID": "38B"` |
 
 ### File 3 — script/start_accessory.sh
 
 The backup values. They only run if the settings above are ever empty. Two lines:
 
-Find (original)
-
-echo 1314 > /sys/class/android_usb_accessory/android0/idVendor
-
-Change to
-
-echo
-
-369D
-
-> /sys/class/android_usb_accessory/android0/idVendor
-
-Find (original)
-
-echo 1520 > /sys/class/android_usb_accessory/android0/idProduct
-
-Change to
-
-echo
-
-38B
-
-> /sys/class/android_usb_accessory/android0/idProduct
+| Find (original) | Change to |
+|---|---|
+| `echo 1314 > /sys/class/android_usb_accessory/android0/idVendor` | `echo 369D > /sys/class/android_usb_accessory/android0/idVendor` |
+| `echo 1520 > /sys/class/android_usb_accessory/android0/idProduct` | `echo 38B > /sys/class/android_usb_accessory/android0/idProduct` |
 
 > [!TIP]
 > **Save all three files** (`Ctrl + S` in each tab) before you close VS Code.
@@ -474,18 +399,18 @@ grep -rn --include=start_accessory.sh "android0/idVendor\|android0/idProduct" ex
 
 > [!TIP]
 > **Every line must show your values:**
-
-**Output** — Expected output (line numbers may differ)
-```text
-extractedRootFS/etc/riddle.conf:…:  "USBVID": "369D",
-extractedRootFS/etc/riddle.conf:…:  "USBPID": "38B",
-extractedRootFS/etc/riddle_default.conf:…:  "USBVID": "369D",
-extractedRootFS/etc/riddle_default.conf:…:  "USBPID": "38B"
-extractedRootFS/script/start_accessory.sh:…:  echo -n $idVendor > /sys/class/android_usb_accessory/android0/idVendor
-extractedRootFS/script/start_accessory.sh:…:  echo 369D > /sys/class/android_usb_accessory/android0/idVendor
-extractedRootFS/script/start_accessory.sh:…:  echo -n $idProduct > /sys/class/android_usb_accessory/android0/idProduct
-extractedRootFS/script/start_accessory.sh:…:  echo 38B > /sys/class/android_usb_accessory/android0/idProduct
-```
+>
+> **Output** — Expected output (line numbers may differ)
+> ```text
+> extractedRootFS/etc/riddle.conf:…:  "USBVID": "369D",
+> extractedRootFS/etc/riddle.conf:…:  "USBPID": "38B",
+> extractedRootFS/etc/riddle_default.conf:…:  "USBVID": "369D",
+> extractedRootFS/etc/riddle_default.conf:…:  "USBPID": "38B"
+> extractedRootFS/script/start_accessory.sh:…:  echo -n $idVendor > /sys/class/android_usb_accessory/android0/idVendor
+> extractedRootFS/script/start_accessory.sh:…:  echo 369D > /sys/class/android_usb_accessory/android0/idVendor
+> extractedRootFS/script/start_accessory.sh:…:  echo -n $idProduct > /sys/class/android_usb_accessory/android0/idProduct
+> extractedRootFS/script/start_accessory.sh:…:  echo 38B > /sys/class/android_usb_accessory/android0/idProduct
+> ```
 
 > [!TIP]
 > The `echo -n $idVendor` / `$idProduct` lines are normal. They read the value from `riddle.conf`. If you still see `1314`, `1520` or `1521` anywhere, a file wasn't saved. Go back and fix it.
@@ -533,12 +458,12 @@ cmp -n 3670016 dump.bin dump_original.bin && echo "[OK] First 3,670,016 bytes un
 
 > [!TIP]
 > **You should see:**
-
-**Output** — Expected output
-```text
-dump.bin 16777216
-[OK] First 3,670,016 bytes untouched
-```
+>
+> **Output** — Expected output
+> ```text
+> dump.bin 16777216
+> [OK] First 3,670,016 bytes untouched
+> ```
 
 > [!TIP]
 > The size is still exactly 16 MB, and the bootloader and kernel at the start of the chip are exactly the same as before.
