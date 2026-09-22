@@ -1,4 +1,4 @@
-# AACP Dongle Mods
+# CarlinKit CPC200-CCPA — VID/PID Mod via CH341A
 
 Independent research and documentation on wireless Android Auto / CarPlay (AACP) dongles — starting with the CarlinKit CPC200-CCPA.
 
